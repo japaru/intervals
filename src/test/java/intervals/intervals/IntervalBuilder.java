@@ -35,6 +35,8 @@ public class IntervalBuilder {
 			return new ClosedInterval(min, max);
 		  case OPEN:
 			return new OpenInterval(min, max);
+		  case CLOSEDOPEN:
+			return new ClosedOpenInterval(min, max);			
 		}
 		return null;
 	}
