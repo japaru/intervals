@@ -1,20 +1,28 @@
 package intervals.intervals;
 
-public abstract class Interval {
-	protected double min;
-	protected double max;
+public class Interval {
+	protected FromPoint min;
+	protected UntilPoint max;
 	
-	public Interval(double min, double max) {
+	public Interval(FromPoint min, UntilPoint max) {
 		this.min = min;
 		this.max = max;
 	}
-
+	
 	public boolean isIntersected(Interval another) {
-		return this.isIncluded(another.min) ||
-				this.isIncluded(another.max)||
-				another.isIncluded(this.min) ||
-				(this.min == another.min && this.max == another.max);
+		if (this.min.value == another.max.value || this.max.value == another.min.value) {
+			return this.isEqualValueConsiderationIntersected(another);
+		};
+		
+		return (!this.min.isLeftTo(another.min) &&  !another.max.isLeftTo(this.min))||
+				(this.min.isLeftTo(another.min) && !this.max.isLeftTo(another.max)) ||
+				(this.min.isLeftTo(another.min) && !this.max.isLeftTo(another.min));
 	}
 	
-	protected abstract boolean isIncluded(double value);
+	private boolean isEqualValueConsiderationIntersected(Interval another) {
+		return (this.min.value == another.max.value && this.min.isValueIncluded && another.max.isValueIncluded) ||
+				(this.max.value == another.min.value && this.max.isValueIncluded && another.min.isValueIncluded) ;
+	}
+		
 }
+;

@@ -9,73 +9,83 @@ public class ClosedOpenIntervalTest {
 
 	@Test
 	public void testIsIntersectedOverlapingByLeft() {
-		Interval one = new IntervalBuilder().type(IntervalType.CLOSEDOPEN).min(3).max(14).build();
-		Interval another = new IntervalBuilder().type(IntervalType.CLOSEDOPEN).min(1).max(7).build();
+		Interval one = new IntervalBuilder().min(new FromPoint(3,true)).max(new UntilPoint(14, false)).build();
+		Interval another = new IntervalBuilder().min(new FromPoint(1,true)).max(new UntilPoint(7,false)).build();
+
 		assertTrue(one.isIntersected(another));
 	}
 
 	@Test
 	public void testIsIntersectedOverlapingByLeftWithEquals() {
-		Interval one = new IntervalBuilder().type(IntervalType.CLOSEDOPEN).min(3).max(14).build();
-		Interval another = new IntervalBuilder().type(IntervalType.CLOSEDOPEN).min(3).max(7).build();
+		Interval one = new IntervalBuilder().min(new FromPoint(3,true)).max(new UntilPoint(14, false)).build();
+		Interval another = new IntervalBuilder().min(new FromPoint(3,true)).max(new UntilPoint(7,false)).build();		
+;
 		assertTrue(one.isIntersected(another));
 	}
 
 	@Test
 	public void testIsIntersectedOverlapingByEquals() {
-		Interval one = new IntervalBuilder().type(IntervalType.CLOSEDOPEN).min(3).max(14).build();
-		Interval another = new IntervalBuilder().type(IntervalType.CLOSEDOPEN).min(3).max(14).build();
+		Interval one = new IntervalBuilder().min(new FromPoint(3,true)).max(new UntilPoint(14, false)).build();
+		Interval another = new IntervalBuilder().min(new FromPoint(3,true)).max(new UntilPoint(14,false)).build();		
+
 		assertTrue(one.isIntersected(another));
 	}
 	
 	
 	@Test
 	public void testIsIntersectedOverlapingByRight() {
-		Interval one = new IntervalBuilder().type(IntervalType.CLOSEDOPEN).min(3).max(14).build();
-		Interval another = new IntervalBuilder().type(IntervalType.CLOSEDOPEN).min(7).max(17).build();
+		Interval one = new IntervalBuilder().min(new FromPoint(3,true)).max(new UntilPoint(14, false)).build();
+		Interval another = new IntervalBuilder().min(new FromPoint(7,true)).max(new UntilPoint(17,false)).build();		
+
 		assertTrue(one.isIntersected(another));
 	}
 	
 	@Test
 	public void testIsIntersectedOverlapingByBoth() {
-		Interval one = new IntervalBuilder().type(IntervalType.CLOSEDOPEN).min(3).max(14).build();
-		Interval another = new IntervalBuilder().type(IntervalType.CLOSEDOPEN).min(0).max(17).build();
+		Interval one = new IntervalBuilder().min(new FromPoint(3,true)).max(new UntilPoint(14, false)).build();
+		Interval another = new IntervalBuilder().min(new FromPoint(0,true)).max(new UntilPoint(17,false)).build();		
+
 		assertTrue(one.isIntersected(another));
 	}
 	
 	@Test
 	public void testIsIntersectedOverlapingByInside() {
-		Interval one = new IntervalBuilder().type(IntervalType.CLOSEDOPEN).min(3).max(14).build();
-		Interval another = new IntervalBuilder().type(IntervalType.CLOSEDOPEN).min(5).max(10).build();
+		Interval one = new IntervalBuilder().min(new FromPoint(3,true)).max(new UntilPoint(14, false)).build();
+		Interval another = new IntervalBuilder().min(new FromPoint(5,true)).max(new UntilPoint(10,false)).build();		
+
 		assertTrue(one.isIntersected(another));
 	}
 	
 	@Test
 	public void testIsIntersectedNotOverlapingByLeft() {
-		Interval one = new IntervalBuilder().type(IntervalType.CLOSEDOPEN).min(3).max(14).build();
-		Interval another = new IntervalBuilder().type(IntervalType.CLOSEDOPEN).min(0).max(2).build();
+		Interval one = new IntervalBuilder().min(new FromPoint(3,true)).max(new UntilPoint(14, false)).build();
+		Interval another = new IntervalBuilder().min(new FromPoint(0,true)).max(new UntilPoint(2,false)).build();
+
 		assertFalse(one.isIntersected(another));
 	}
 	
 	@Test
 	public void testIsIntersectedNotOverlapingByRight() {
-		Interval one = new IntervalBuilder().type(IntervalType.CLOSEDOPEN).min(3).max(14).build();
-		Interval another = new IntervalBuilder().type(IntervalType.CLOSEDOPEN).min(16).max(22).build();
+		Interval one = new IntervalBuilder().min(new FromPoint(3,true)).max(new UntilPoint(14, false)).build();
+		Interval another = new IntervalBuilder().min(new FromPoint(16,true)).max(new UntilPoint(22,false)).build();		
+
 		assertFalse(one.isIntersected(another));
 	}
 		
 	@Test
 	public void testIsIntersectedNotOverlapingByRightSameValue() {
-		Interval one = new IntervalBuilder().type(IntervalType.CLOSEDOPEN).min(3).max(14).build();
-		Interval another = new IntervalBuilder().type(IntervalType.CLOSEDOPEN).min(1).max(3).build();
-		assertTrue(one.isIntersected(another));
+		Interval one = new IntervalBuilder().min(new FromPoint(3,true)).max(new UntilPoint(14, false)).build();
+		Interval another = new IntervalBuilder().min(new FromPoint(1,true)).max(new UntilPoint(3,false)).build();		
+
+		assertFalse(one.isIntersected(another));
 	}
-/*		
+	
 	@Test
 	public void testIsIntersectedNotOverlapingByLeftSameValue() {
-		Interval one = new IntervalBuilder().type(IntervalType.CLOSEDOPEN).min(3).max(14).build();
-		Interval another = new IntervalBuilder().type(IntervalType.CLOSEDOPEN).min(14).max(18).build();
-		assertTrue(one.isIntersected(another));
+		Interval one = new IntervalBuilder().min(new FromPoint(3,true)).max(new UntilPoint(14, false)).build();
+		Interval another = new IntervalBuilder().min(new FromPoint(14,true)).max(new UntilPoint(18,false)).build();	
+
+		assertFalse(one.isIntersected(another));
 	}
-*/	
+
 }
